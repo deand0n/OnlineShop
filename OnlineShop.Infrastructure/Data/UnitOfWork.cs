@@ -7,15 +7,16 @@ namespace OnlineShop.Infrastructure.Data;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly DbContext _context;
-    private IRepository<Product>? _productRepository;
-
-    public IRepository<Product> ProductRepository => _productRepository ?? new Repository<Product>(_context);
-
-    public UnitOfWork(DbContext context)
+    private readonly EFContext _context;
+    public UnitOfWork(EFContext context)
     {
         _context = context;
     }
+    
+    private IRepository<Product>? _productRepository;
+
+    public IRepository<Product> ProductRepository => _productRepository ?? new ProductRepository(_context);
+
 
     public async Task<bool> SaveChangesAsync()
     {

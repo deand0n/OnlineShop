@@ -5,11 +5,11 @@ using OnlineShop.Domain.Interfaces;
 
 namespace OnlineShop.Infrastructure.Data.Repositories;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 {
     private readonly DbSet<T> _dbSet;
     
-    public Repository(DbContext context)
+    public Repository(EFContext context)
     {
         _dbSet = context.Set<T>();
     }
