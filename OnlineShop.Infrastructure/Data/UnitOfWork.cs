@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using OnlineShop.Domain.Base;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.ProductAggregate;
 using OnlineShop.Infrastructure.Data.Repositories;
@@ -13,9 +15,7 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
     
-    private IRepository<Product>? _productRepository;
-
-    public IRepository<Product> ProductRepository => _productRepository ?? new ProductRepository(_context);
+    public IRepository<Product> ProductRepository => new ProductRepository(_context);
 
 
     public async Task<bool> SaveChangesAsync()

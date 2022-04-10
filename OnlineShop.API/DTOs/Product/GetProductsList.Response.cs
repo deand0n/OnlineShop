@@ -1,6 +1,8 @@
-namespace OnlineShop.API.DTOs;
+using OnlineShop.Domain.Base;
 
-public class GetProductsListResponse
+namespace OnlineShop.API.DTOs.Product;
+
+public class GetProductsListResponse : BaseEntity
 {
     
 }

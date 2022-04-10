@@ -1,14 +1,19 @@
-using OnlineShop.API.DTOs;
+using OnlineShop.API.DTOs.Pagination;
+using OnlineShop.API.DTOs.Product;
 using OnlineShop.Domain.Interfaces;
 
 namespace OnlineShop.API.Services;
 
 public class ProductService : BaseService
 {
-    ProductService(IUnitOfWork unitOfWork) : base(unitOfWork) {}
+    public ProductService(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {}
 
-    public async Task<GetProductsListResponse?> GetProductsList(GetProductsListRequest products)
+    public async Task<Page<GetProductsListResponse>> GetProductsList(GetProductsListRequest request)
     {
-        return null;
+        // var products = await UnitOfWork.ProductRepository.ListAsync(product => product.Name.Length > 0);
+        
+        // return null;
+        throw new NotImplementedException();
     }
 }
