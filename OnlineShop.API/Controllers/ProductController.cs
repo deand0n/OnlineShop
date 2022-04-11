@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.API.DTOs;
-using OnlineShop.API.DTOs.Product;
+using OnlineShop.API.DTOs.Products;
 using OnlineShop.API.Services;
 
 namespace OnlineShop.API.Controllers;

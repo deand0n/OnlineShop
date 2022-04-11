@@ -1,6 +1,6 @@
 using OnlineShop.API.DTOs.Pagination;
 
-namespace OnlineShop.API.DTOs.Product;
+namespace OnlineShop.API.DTOs.Products;
 
 public class GetProductsListRequest : Pageable
 {

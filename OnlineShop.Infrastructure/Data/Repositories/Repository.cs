@@ -9,7 +9,7 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 {
     private readonly DbSet<T> _dbSet;
     
-    protected Repository(EFContext context)
+    protected Repository(DbContext context)
     {
         _dbSet = context.Set<T>();
     }
@@ -37,13 +37,13 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
         return _dbSet.FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public Task<List<T>> ListAsync(Expression<Func<T, bool>> predicate)
+    public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)
     {
-        return _dbSet.Where(predicate).ToListAsync();
+        return _dbSet.Where(expression).ToListAsync();
     }
     
-    public Task<int> CountAsync(T entity)
+    public Task<int> CountAsync(Expression<Func<T, bool>> expression)
     {
-        return _dbSet.CountAsync(e => e.Id == entity.Id);
+        return _dbSet.CountAsync();
     }
 }

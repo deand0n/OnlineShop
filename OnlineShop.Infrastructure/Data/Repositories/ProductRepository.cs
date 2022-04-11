@@ -5,7 +5,7 @@ namespace OnlineShop.Infrastructure.Data.Repositories;
 
 public class ProductRepository : Repository<Product>
 {
-    public ProductRepository(EFContext context) : base(context)
+    public ProductRepository(DbContext context) : base(context)
     {
         
     }

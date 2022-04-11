@@ -1,10 +1,10 @@
-using OnlineShop.Domain.Attributes;
 using OnlineShop.Domain.Base;
+using OnlineShop.Domain.ProductAggregate;
 
-namespace OnlineShop.Domain.ProductAggregate;
+namespace OnlineShop.API.DTOs.Products;
 
-[AggregateRoot]
-public class Product : BaseEntity 
+
+public class GetProductsListResponse : BaseEntity
 {
     public string Name { get; set; }
     public string Description { get; set; }

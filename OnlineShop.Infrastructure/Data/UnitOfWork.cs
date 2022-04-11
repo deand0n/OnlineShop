@@ -16,8 +16,7 @@ public class UnitOfWork : IUnitOfWork
     }
     
     public IRepository<Product> ProductRepository => new ProductRepository(_context);
-
-
+    
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
