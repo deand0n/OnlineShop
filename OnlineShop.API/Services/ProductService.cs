@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using OnlineShop.API.DTOs.Pagination;
 using OnlineShop.API.DTOs.Products;
-using OnlineShop.Domain.Base;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.ProductAggregate;
 

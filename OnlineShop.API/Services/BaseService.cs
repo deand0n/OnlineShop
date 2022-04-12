@@ -1,6 +1,6 @@
 using OnlineShop.Domain.Interfaces;
 
-namespace OnlineShop.Domain.Base;
+namespace OnlineShop.API.Services;
 
 public class BaseService
 {
