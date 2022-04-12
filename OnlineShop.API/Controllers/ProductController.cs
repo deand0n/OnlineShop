@@ -4,11 +4,12 @@ using OnlineShop.API.Services;
 
 namespace OnlineShop.API.Controllers;
 
+[Route("api/[controller]")]
 public class ProductController : BaseApiController
 {
     private readonly ProductService _productService;
 
-    ProductController(ProductService productService)
+    public ProductController(ProductService productService)
     {
         _productService = productService;
     }
@@ -17,6 +18,7 @@ public class ProductController : BaseApiController
     public async Task<IActionResult> GetProductsList([FromQuery] GetProductsListRequest request)
     {
         var products = await _productService.GetProductsList(request);
+        
         return Ok(products);
     }
 }

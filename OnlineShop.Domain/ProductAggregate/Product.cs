@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using OnlineShop.Domain.Attributes;
 using OnlineShop.Domain.Base;
 

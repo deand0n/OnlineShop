@@ -3,9 +3,9 @@ using OnlineShop.Domain.Base;
 
 namespace OnlineShop.Infrastructure.Data;
 
-public class EFContext : DbContext
+public class EfContext : DbContext
 {
-    public EFContext(DbContextOptions<EFContext> options) : base(options)
+    public EfContext(DbContextOptions<EfContext> options) : base(options)
     {
         
     }

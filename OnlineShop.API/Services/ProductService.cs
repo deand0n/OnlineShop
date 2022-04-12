@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using OnlineShop.API.DTOs.Pagination;
 using OnlineShop.API.DTOs.Products;
+using OnlineShop.Domain.Base;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.ProductAggregate;
 
@@ -21,17 +22,10 @@ public class ProductService : BaseService
                                                                          product.Description.Contains(request.SearchQuery);
         
         var products = await _productRepository.ListAsync(closestToSearchQuery);
-        var productsResponse = products.Select(product => new GetProductsListResponse
-        {
-            Name = product.Name,
-            Description = product.Description,
-            Price = product.Price,
-            Quantity = product.Quantity,
-            ImageUrl = product.ImageUrl
-        });
-
         var totalItemsCount = await _productRepository.CountAsync(closestToSearchQuery);
         
+        var productsResponse = products.Select(product => new GetProductsListResponse(product));
+
         return new Page<GetProductsListResponse>(productsResponse, totalItemsCount, request);
     }
 }
