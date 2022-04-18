@@ -1,18 +1,23 @@
 using System.Linq.Expressions;
 using OnlineShop.API.DTOs.Pagination;
 using OnlineShop.API.DTOs.Products;
+using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 using OnlineShop.Domain.Interfaces;
-using OnlineShop.Domain.ProductAggregate;
 
 namespace OnlineShop.API.Services;
 
-public class ProductService : BaseService
+public class ProductsService : BaseService
 {
-    IRepository<Product> _productRepository;
+    private readonly IRepository<Product> _productRepository;
     
-    public ProductService(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public ProductsService(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _productRepository = unitOfWork.ProductRepository;
+    }
+
+    public async Task<AddProductResponse> AddProduct(AddProductRequest request)
+    {
+        return null;
     }
 
     public async Task<Page<GetProductsListResponse>> GetProductsList(GetProductsListRequest request)

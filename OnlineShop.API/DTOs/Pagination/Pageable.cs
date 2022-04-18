@@ -4,7 +4,7 @@ public class Pageable
 {
     public int CurrentPageNumber { get; set; }
     public int PageSize { get; set; }
-    public SortBy SortBy { get; set; }
+    // public SortBy SortBy { get; set; }
 
     protected Pageable(Pageable pageable)
     {
@@ -12,6 +12,11 @@ public class Pageable
 
         CurrentPageNumber = pageable.CurrentPageNumber;
         PageSize = pageable.PageSize == 0 ? defaultPageSize : pageable.PageSize;
-        SortBy = pageable.SortBy;
+        // SortBy = pageable.SortBy;
+    }
+
+    protected Pageable()
+    {
+        
     }
 }

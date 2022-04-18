@@ -1,0 +1,9 @@
+to install dotnet ef core
+
+dotnet tool install --global dotnet-ef
+
+
+to add migrations
+
+dotnet ef migrations add MigrationName
+

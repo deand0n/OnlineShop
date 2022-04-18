@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 using OnlineShop.Domain.Base;
+using OnlineShop.Infrastructure.Data.EntitiesConfig;
+using OnlineShop.Infrastructure.Data.EntitiesConfig.ProductConfig;
 
 namespace OnlineShop.Infrastructure.Data;
 
-public class EfContext : DbContext
+public sealed class EfContext : DbContext
 {
     public EfContext(DbContextOptions<EfContext> options) : base(options)
     {
-        
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
@@ -17,9 +19,19 @@ public class EfContext : DbContext
         return base.SaveChangesAsync(cancellationToken);        
     }
     
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=online_shop;Username=student;Password=admin");
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder) 
     {
-        modelBuilder.Entity<BaseEntity>().HasQueryFilter(b => !b.IsDeleted);
+        // modelBuilder.Entity<BaseEntity>().HasQueryFilter(b => !b.IsDeleted);
+        
+        // InitializeBaseEntity(modelBuilder);
+        
+        new ProductConfiguration().Configure(modelBuilder.Entity<Product>());
+        new ImageConfiguration().Configure(modelBuilder.Entity<Image>());
     }
 
     private void CheckEntityState()
@@ -34,7 +46,10 @@ public class EfContext : DbContext
             
             if (entry.State == EntityState.Added)
             {
+                baseEntity.Id = Guid.NewGuid();
                 baseEntity.CreateDate = DateTime.UtcNow;
+                baseEntity.UpdateDate = DateTime.UtcNow;
+                baseEntity.IsDeleted = false;
             }
             else if (entry.State == EntityState.Modified)
             {

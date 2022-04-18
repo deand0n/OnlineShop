@@ -1,4 +1,4 @@
-using OnlineShop.Domain.ProductAggregate;
+using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
 namespace OnlineShop.Domain.Interfaces;
 

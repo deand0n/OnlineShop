@@ -34,7 +34,7 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 
     public Task<T?> GetByIdAsync(Guid id)
     {
-        return _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+        return _dbSet.FirstOrDefaultAsync(entity => entity.Id == id);
     }
 
     public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)

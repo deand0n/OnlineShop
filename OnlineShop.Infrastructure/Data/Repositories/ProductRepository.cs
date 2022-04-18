@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Domain.ProductAggregate;
+using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
 namespace OnlineShop.Infrastructure.Data.Repositories;
 

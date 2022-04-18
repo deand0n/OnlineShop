@@ -9,4 +9,9 @@ public class GetProductsListRequest : Pageable
     public GetProductsListRequest(Pageable pageable) : base(pageable)
     {
     }
+
+    public GetProductsListRequest()
+    {
+        
+    }
 }

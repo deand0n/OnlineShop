@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 using OnlineShop.Domain.Interfaces;
-using OnlineShop.Domain.ProductAggregate;
 using OnlineShop.Infrastructure.Data.Repositories;
 
 namespace OnlineShop.Infrastructure.Data;
@@ -8,11 +8,10 @@ namespace OnlineShop.Infrastructure.Data;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly EfContext _context;
-    public UnitOfWork()
+    
+    public UnitOfWork(EfContext context)
     {
-        var options = new DbContextOptions<EfContext>();
-        
-        _context = new EfContext(options);
+        _context = context;
     }
     
     public IRepository<Product> ProductRepository => new ProductRepository(_context);

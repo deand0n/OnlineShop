@@ -11,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ProductsService>();
+
+builder.Services.AddDbContext<EfContext>();
 
 var app = builder.Build();
 
