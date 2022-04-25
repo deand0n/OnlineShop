@@ -1,8 +1,6 @@
-using OnlineShop.Domain.Base;
-
 namespace OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
-public class Image : BaseEntity
+public class Image
 {
     public string Url { get; set; }
     public string Alt { get; set; }

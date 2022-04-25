@@ -1,9 +1,8 @@
 using System.Linq.Expressions;
-using OnlineShop.Domain.Base;
 
 namespace OnlineShop.Domain.Interfaces;
 
-public interface IRepository<T> where T : BaseEntity
+public interface IRepository<T>
 {
     Task<T> AddAsync(T entity);
     Task<T> UpdateAsync(T entity);

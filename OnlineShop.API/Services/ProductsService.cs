@@ -14,16 +14,29 @@ public class ProductsService : BaseService
     {
         _productRepository = unitOfWork.ProductRepository;
     }
-
+    
     public async Task<AddProductResponse> AddProduct(AddProductRequest request)
     {
-        return null;
+        var product = Product.Create(
+            request.Name, 
+            request.Description, 
+            request.Price, 
+            request.Quantity, 
+            request.Images);
+        
+        await _productRepository.AddAsync(product);
+        await UnitOfWork.SaveChangesAsync();
+        
+        var response = new AddProductResponse(product);
+
+        return response;
     }
 
     public async Task<Page<GetProductsListResponse>> GetProductsList(GetProductsListRequest request)
     {
-        Expression<Func<Product, bool>> closestToSearchQuery = product => product.Name.Contains(request.SearchQuery) || 
-                                                                         product.Description.Contains(request.SearchQuery);
+        Expression<Func<Product, bool>> closestToSearchQuery = product => 
+            product.Name.Contains(request.SearchQuery) || 
+            product.Description.Contains(request.SearchQuery);
         
         var products = await _productRepository.ListAsync(closestToSearchQuery);
         var totalItemsCount = await _productRepository.CountAsync(closestToSearchQuery);

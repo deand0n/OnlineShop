@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="AggregatesModel" />
+      <Folder Include="Base" />
       <Folder Include="Entities" />
       <Folder Include="Exceptions" />
     </ItemGroup>

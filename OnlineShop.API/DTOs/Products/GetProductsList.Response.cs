@@ -1,16 +1,15 @@
 using OnlineShop.Domain.AggregatesModel.ProductAggregate;
-using OnlineShop.Domain.Base;
 
 namespace OnlineShop.API.DTOs.Products;
 
 
-public class GetProductsListResponse : BaseEntity
+public class GetProductsListResponse
 {
     public string Name { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }
-    // public string ImageUrl { get; set; }
+    public IEnumerable<Image> Images { get; set; }
 
     public GetProductsListResponse(Product product)
     {
@@ -18,6 +17,6 @@ public class GetProductsListResponse : BaseEntity
         Description = product.Description;
         Price = product.Price;
         Quantity = product.Quantity;
-        // ImageUrl = product.ImageUrl;
+        Images = product.Images;
     }
 }

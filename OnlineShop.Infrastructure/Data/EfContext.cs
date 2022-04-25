@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.AggregatesModel.ProductAggregate;
-using OnlineShop.Domain.Base;
 using OnlineShop.Infrastructure.Data.EntitiesConfig;
 using OnlineShop.Infrastructure.Data.EntitiesConfig.ProductConfig;
 
@@ -26,10 +25,6 @@ public sealed class EfContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder) 
     {
-        // modelBuilder.Entity<BaseEntity>().HasQueryFilter(b => !b.IsDeleted);
-        
-        // InitializeBaseEntity(modelBuilder);
-        
         new ProductConfiguration().Configure(modelBuilder.Entity<Product>());
         new ImageConfiguration().Configure(modelBuilder.Entity<Image>());
     }
@@ -38,7 +33,7 @@ public sealed class EfContext : DbContext
     {
         foreach (var entry in ChangeTracker.Entries())
         {
-            var baseEntity = entry.Entity as BaseEntity;
+            var baseEntity = entry.Entity as dynamic;
             if (baseEntity == null)
             {
                 continue;

@@ -1,11 +1,10 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Domain.Base;
 using OnlineShop.Domain.Interfaces;
 
 namespace OnlineShop.Infrastructure.Data.Repositories;
 
-public abstract class Repository<T> : IRepository<T> where T : BaseEntity
+public abstract class Repository<T> : IRepository<T> where T : class
 {
     private readonly DbSet<T> _dbSet;
     
@@ -32,9 +31,9 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
         return Task.FromResult(true);
     }
 
-    public Task<T?> GetByIdAsync(Guid id)
+    public async Task<T?> GetByIdAsync(Guid id)
     {
-        return _dbSet.FirstOrDefaultAsync(entity => entity.Id == id);
+        return await _dbSet.FindAsync(id);
     }
 
     public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)
@@ -44,6 +43,6 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
     
     public Task<int> CountAsync(Expression<Func<T, bool>> expression)
     {
-        return _dbSet.CountAsync();
+        return _dbSet.CountAsync(expression);
     }
 }

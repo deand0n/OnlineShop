@@ -1,8 +1,6 @@
-using OnlineShop.Domain.Base;
-
 namespace OnlineShop.API.DTOs.Pagination;
 
-public class Page<T> : Pageable where T : BaseEntity
+public class Page<T> : Pageable
 {
     public int TotalPages { get; set; }
     public int TotalItemsCount { get; set; }
