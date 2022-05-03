@@ -1,3 +1,6 @@
+using System.Reflection;
+using AutoMapper;
+using OnlineShop.API.MapperConfigurations;
 using OnlineShop.API.Services;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Infrastructure.Data;
@@ -10,6 +13,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+var mapperConfiguration = new AutoMapperConfiguration().Configure();
+mapperConfiguration.CompileMappings();
+mapperConfiguration.AssertConfigurationIsValid();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ProductsService>();

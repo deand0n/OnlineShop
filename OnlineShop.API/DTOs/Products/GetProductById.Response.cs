@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
 namespace OnlineShop.API.DTOs.Products;
 
-public class AddProductResponse
+public class GetProductByIdResponse
 {
     public string Name { get; set; }
     public string Description { get; set; }

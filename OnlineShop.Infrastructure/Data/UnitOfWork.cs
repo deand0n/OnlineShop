@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Infrastructure.Data.Repositories;
 
@@ -14,7 +12,7 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
     
-    public IRepository<Product> ProductRepository => new ProductRepository(_context);
+    public IProductRepository ProductRepository => new ProductRepository(_context);
     
     public async Task<bool> SaveChangesAsync()
     {

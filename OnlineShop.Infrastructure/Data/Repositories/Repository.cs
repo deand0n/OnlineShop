@@ -1,48 +1,49 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.Base;
 using OnlineShop.Domain.Interfaces;
 
 namespace OnlineShop.Infrastructure.Data.Repositories;
 
-public abstract class Repository<T> : IRepository<T> where T : class
+public abstract class Repository<T> : IRepository<T> where T : class, IBaseEntity
 {
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> DbSet;
     
     protected Repository(DbContext context)
     {
-        _dbSet = context.Set<T>();
+        DbSet = context.Set<T>();
     }
 
     public async Task<T> AddAsync(T entity)
     {
-        await _dbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
         return entity;
     }
 
     public Task<T> UpdateAsync(T entity)
     {
-        _dbSet.Update(entity);
+        DbSet.Update(entity);
         return Task.FromResult(entity);
     }
 
     public Task<bool> DeleteAsync(T entity)
     {
-        _dbSet.Remove(entity);
+        DbSet.Remove(entity);
         return Task.FromResult(true);
     }
 
     public async Task<T?> GetByIdAsync(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        return await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
     }
 
     public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)
     {
-        return _dbSet.Where(expression).ToListAsync();
+        return DbSet.Where(expression).ToListAsync();
     }
-    
+
     public Task<int> CountAsync(Expression<Func<T, bool>> expression)
     {
-        return _dbSet.CountAsync(expression);
+        return DbSet.CountAsync(expression);
     }
 }

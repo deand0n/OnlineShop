@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.AggregatesModel.ProductAggregate;
-using OnlineShop.Infrastructure.Data.EntitiesConfig;
+using OnlineShop.Domain.Base;
 using OnlineShop.Infrastructure.Data.EntitiesConfig.ProductConfig;
 
 namespace OnlineShop.Infrastructure.Data;
@@ -33,7 +33,7 @@ public sealed class EfContext : DbContext
     {
         foreach (var entry in ChangeTracker.Entries())
         {
-            var baseEntity = entry.Entity as dynamic;
+            var baseEntity = entry.Entity as IBaseEntity;
             if (baseEntity == null)
             {
                 continue;
@@ -44,6 +44,7 @@ public sealed class EfContext : DbContext
                 baseEntity.Id = Guid.NewGuid();
                 baseEntity.CreateDate = DateTime.UtcNow;
                 baseEntity.UpdateDate = DateTime.UtcNow;
+                baseEntity.DeleteDate = null;
                 baseEntity.IsDeleted = false;
             }
             else if (entry.State == EntityState.Modified)

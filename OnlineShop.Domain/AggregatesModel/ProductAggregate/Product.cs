@@ -1,24 +1,23 @@
 using OnlineShop.Domain.Attributes;
+using OnlineShop.Domain.Base;
 
 namespace OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
 [AggregateRoot]
-public class Product
+public class Product : IBaseEntity
 {
+    public Guid Id { get; set; }
+    public DateTime CreateDate { get; set; }
+    public DateTime UpdateDate { get; set; }
+    public DateTime? DeleteDate { get; set; }
+    public bool IsDeleted { get; set; }
+    
     public string Name { get; private set; }
     public string Description { get; private set; }
     public decimal Price { get; private set; }
     public int Quantity { get; private set; }
     public IEnumerable<Image> Images { get; private set; }
     
-    // copy and paste to every entity
-    // BEGIN
-    public Guid Id { get; set; }
-    public DateTime CreateDate { get; set; }
-    public DateTime UpdateDate { get; set; }
-    public DateTime DeleteDate { get; set; }
-    public bool IsDeleted { get; set; }
-    // END
 
     protected Product()
     {
@@ -29,74 +28,88 @@ public class Product
     // https://refactoring.guru/design-patterns/builder
     public static Product Create(string name, string description, decimal price, int quantity, IEnumerable<Image>? images)
     {
-        Product p = new();
+        Product product = new();
+
+        if (product.TryUpdateName(name)
+            && product.TryUpdateDescription(description)
+            && product.TryUpdatePrice(price)
+            && product.TryUpdateQuantity(quantity)
+            && product.TryUpdateImages(images))
+        {
+            return product;
+        }
         
-        p.AddName(name);
-        p.AddDescription(description);
-        p.AddPrice(price);
-        p.AddQuantity(quantity);
-        p.AddImages(images);
-        
-        return p;
+        throw new InvalidOperationException("Product could not be created.");
     }
     
-    public string AddName(string name)
+    public Product Update(Product product, string? name, string? description, decimal? price, int? quantity, IEnumerable<Image>? images)
+    { 
+        product.TryUpdateName(name);
+        product.TryUpdateDescription(description); 
+        product.TryUpdatePrice(price); 
+        product.TryUpdateQuantity(quantity);
+        product.TryUpdateImages(images);
+        
+        return product;
+    }
+    
+    public bool TryUpdateName(string? name)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new ArgumentException("Name is required");
+            return false;
         }
 
         Name = name.Trim();
         
-        return Name;
+        return true;
     }
     
-    public string AddDescription(string description)
+    public bool TryUpdateDescription(string? description)
     {
         if (string.IsNullOrWhiteSpace(description))
         {
-            throw new ArgumentException("Description is required");
+            return false;
         }
 
         Description = description.Trim();
         
-        return Description;
+        return true;
     }
     
-    public decimal AddPrice(decimal price)
+    public bool TryUpdatePrice(decimal? price)
     {
-        if (price <= 0)
+        if (price is null || price < 0)
         {
-            throw new ArgumentException("Price must be greater than 0");
+            return false;
         }
 
-        Price = price;
+        Price = price.Value;
         
-        return Price;
+        return true;
     }
     
-    public int AddQuantity(int quantity)
+    public bool TryUpdateQuantity(int? quantity)
     {
-        if (quantity <= 0)
+        if (quantity is null || quantity < 0)
         {
-            throw new ArgumentException("Quantity must be greater than 0");
+            return false;
         }
 
-        Quantity = quantity;
+        Quantity = quantity.Value;
         
-        return Quantity;
+        return true;
     }
     
-    public IEnumerable<Image> AddImages(IEnumerable<Image> images)
+    public bool TryUpdateImages(IEnumerable<Image>? images)
     {
         if (images == null)
         {
-            throw new ArgumentException("Images is required");
+            return false;
         }
 
         Images = images;
         
-        return Images;
+        return true;
     }
 }

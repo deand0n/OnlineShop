@@ -2,7 +2,7 @@ using OnlineShop.Domain.AggregatesModel.ProductAggregate;
 
 namespace OnlineShop.API.DTOs.Products;
 
-public class AddProductResponse
+public class UpdateProductRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }

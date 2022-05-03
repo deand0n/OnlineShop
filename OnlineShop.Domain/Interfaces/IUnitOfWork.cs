@@ -4,6 +4,6 @@ namespace OnlineShop.Domain.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    IRepository<Product> ProductRepository { get; }
+    IProductRepository ProductRepository { get; }
     Task<bool> SaveChangesAsync();
 }
